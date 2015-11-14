@@ -29,20 +29,33 @@ var lifeGame = function(x){
 	this.setNextTurnDead = function(x,y){
 		this.cell[x][y].nextTurn = false;
 	}
+	//
 	this.setNextTurn = function(){
-		var rowLength = this.cell.length;
-		for (var i = 1; i < rowLength - 1; i++){
-			for (var j = 1; j < rowLength -1 ; j++){ 
+		var rowLength = this.cell.length - 1;
+		for (var i = 1; i < rowLength; i++){
+			for (var j = 1; j < rowLength; j++){ 
 				this.cell[i][j].neighbors = this.cell[i-1][j-1].alive + this.cell[i-1][j].alive + 
 					this.cell[i-1][j+1].alive + this.cell[i][j-1].alive + this.cell[i][j+1].alive +
 					this.cell[i+1][j-1].alive + this.cell[i+1][j].alive + this.cell[i+1][j+1].alive;
-	
-				if (this.cell[i][j].neighbors < 2 || this.cell[i][j].neighbors >= 4)
-					this.setNextTurnDead(i,j);
-				if (this.cell[i][j].neighbors == 3)
-					this.setNextTurnAlive(i,j);
 			}
+			
+			this.cell[0][i].neighbors = this.cell[0][i-1].alive + this.cell[0][i+1].alive +
+				this.cell[1][i-1].alive + this.cell[1][i].alive + this.cell[1][i+1].alive;
+			this.cell[rowLength][i].neighbors = this.cell[rowLength-1][i-1].alive + this.cell[rowLength-1][i].alive + 
+				this.cell[rowLength-1][i+1].alive + this.cell[rowLength][i-1].alive + this.cell[rowLength][i+1].alive;
+			this.cell[i][0].neighbors = this.cell[i-1][0].alive + this.cell[i-1][1].alive + this.cell[i][1].alive 
+					+ this.cell[i+1][0].alive + this.cell[i+1][1].alive;
+			this.cell[i][rowLength].neighbors = this.cell[i-1][rowLength-1].alive + this.cell[i-1][rowLength].alive + 
+					this.cell[i][rowLength-1].alive + this.cell[i+1][rowLength-1].alive + this.cell[i+1][rowLength].alive;
 		}
+		this.cell[0][0].neighbors = this.cell[0][1].alive + this.cell[1][1].alive +
+				this.cell[1][0].alive;
+		this.cell[rowLength][0].neighbors = this.cell[rowLength-1][0].alive + this.cell[rowLength-1][1].alive +
+				this.cell[rowLength][1].alive; 
+		this.cell[0][rowLength].neighbors = this.cell[0][rowLength-1].alive + this.cell[1][rowLength-1].alive +
+				this.cell[1][rowLength].alive; 
+		this.cell[rowLength][rowLength].neighbors = this.cell[rowLength][rowLength-1].alive + this.cell[rowLength-1][rowLength-1].alive +
+				this.cell[rowLength-1][rowLength].alive;  
 	}
 }
 	
@@ -56,8 +69,12 @@ var lifeGame = function(x){
 var myLifeGame = new lifeGame(50);
 myLifeGame.setAlive(4,3);
 myLifeGame.setAlive(5,4);
+myLifeGame.setAlive(0,0);
+myLifeGame.setAlive(49,3);
 console.log(myLifeGame.cell[4][3]);
 myLifeGame.setNextTurn();
 console.log(myLifeGame.cell[5][3]);
+console.log(myLifeGame.cell[49][3]);
+console.log(myLifeGame.cell[49][2]);
 
 
