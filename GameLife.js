@@ -3,7 +3,6 @@
 //neighbors is how many surrounding cells are alive.
 var lifeUnit = function(){
 	this.alive = false;
-	this.nextTurn = false;
 	this.neighbors = 0;
 
 }
@@ -20,14 +19,8 @@ var lifeGame = function(x){
 	this.setAlive = function(x,y){
 		this.cell[x][y].alive = true;
 	}
-	this.setNextTurnAlive = function(x,y){
-		this.cell[x][y].nextTurn = true;
-	}
 	this.setDead = function(x,y){
 		this.cell[x][y].alive = false;
-	}
-	this.setNextTurnDead = function(x,y){
-		this.cell[x][y].nextTurn = false;
 	}
 	//
 	this.setNextTurn = function(){
@@ -56,6 +49,18 @@ var lifeGame = function(x){
 				this.cell[1][rowLength].alive; 
 		this.cell[rowLength][rowLength].neighbors = this.cell[rowLength][rowLength-1].alive + this.cell[rowLength-1][rowLength-1].alive +
 				this.cell[rowLength-1][rowLength].alive;  
+	}
+	
+	this.doTurn = function(){
+		var rowLength = this.cell.length;
+		for (var i = 0; i < rowLength; i++){
+			for (var j = 0; j < rowLength; j++){
+				if (this.cell[i][j].neighbors >= 4 || this.cell[i][j].neighbors < 2)
+					this.setDead(i,j);
+				if (this.cell[i][j].neighbors == 3)
+					this.setAlive(i,j);
+			}
+		}
 	}
 }
 	
