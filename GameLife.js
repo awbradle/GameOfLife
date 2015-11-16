@@ -62,19 +62,19 @@ var lifeGame = function(x){
 			}
 		}
 	}
-	this.toConsole =  function(){
-		var rowLength = this.cell.length;
-		for (var i = 0; i < rowLength; i++){
-			var str = "";
-			for (var j = 0; j < rowLength; j++){ 
-				if (this.cell[i][j].alive)
-					str += "1";
-				else
-					str += "0";
-			}
-			console.log(str);
-		}
-	}
+// 	this.toConsole =  function(){
+// 		var rowLength = this.cell.length;
+// 		for (var i = 0; i < rowLength; i++){
+// 			var str = "";
+// 			for (var j = 0; j < rowLength; j++){ 
+// 				if (this.cell[i][j].alive)
+// 					str += "1";
+// 				else
+// 					str += "0";
+// 			}
+// 			console.log(str);
+// 		}
+// 	}
 }
 	
 
@@ -85,14 +85,14 @@ var lifeGame = function(x){
 // console.log(arr[-1] == undefined);
 
 var myLifeGame = new lifeGame(50);
-myLifeGame.setAlive(4,3);
-myLifeGame.setAlive(5,4);
-myLifeGame.setAlive(0,0);
-myLifeGame.setAlive(49,3);
+//myLifeGame.setAlive(4,3);
+//myLifeGame.setAlive(5,4);
+//myLifeGame.setAlive(0,0);
+//myLifeGame.setAlive(49,3);
 //console.log(myLifeGame.cell[4][3]);
 //myLifeGame.setNextTurn();
-console.log(myLifeGame.cell[5][3]);
-console.log(myLifeGame.cell[49][3]);
-console.log(myLifeGame.cell[49][2]);
+//console.log(myLifeGame.cell[5][3]);
+//console.log(myLifeGame.cell[49][3]);
+//console.log(myLifeGame.cell[49][2]);
 
 
