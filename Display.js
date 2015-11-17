@@ -1,3 +1,6 @@
+var timers = [],
+	gameSpeed = 300,
+	livingColor = "green";
 var myLifeGame = new lifeGame(40);
 var game = document.getElementById("game"); //gets the div with the Id "game"
 var gameLength = myLifeGame.cell.length; //
@@ -13,7 +16,7 @@ for (var i = 0; i < gameLength; i++){
 		this.cell.i = i;
 		this.cell.j = j;
 				if (myLifeGame.cell[i][j].alive)
-			cell.style.backgroundColor = "green";
+			cell.style.backgroundColor = livingColor;
 		else
 			cell.style.backgroundColor = "white";
 
@@ -21,7 +24,7 @@ for (var i = 0; i < gameLength; i++){
 		cell.style.height = "10px";
 		cell.style.cssFloat = "left";
 		if (myLifeGame.cell[i][j].alive)
-			cell.style.backgroundColor = "green";
+			cell.style.backgroundColor = livingColor;
 		else
 			cell.style.backgroundColor = "white";
 		cell.style.border = "thin solid";
@@ -43,8 +46,8 @@ function updateCells (){
 		for (var j = 0; j < gameLength; j++){
 			var cellName = "r" + i + "c" + j;
 			if (myLifeGame.cell[i][j].alive)
-				document.getElementById(cellName).style.backgroundColor = "green";
-			else if (document.getElementById(cellName).style.backgroundColor == "green")
+				document.getElementById(cellName).style.backgroundColor = livingColor;
+			else if (document.getElementById(cellName).style.backgroundColor == livingColor)
 				document.getElementById(cellName).style.backgroundColor = "red";
 			else
 				document.getElementById(cellName).style.backgroundColor = "white";
@@ -67,5 +70,49 @@ function clickThisCell(){
 		myLifeGame.setDead(i,j);
 	else
 		myLifeGame.setAlive(i,j);
+	updateCells();
+}
+
+function startGame() {
+	if (timers.length <= 0)
+		timers.push(setInterval(playGame, gameSpeed));
+}
+function stopGame() {
+	while(timers.length > 0){
+		clearInterval(timers.pop());
+	}
+}
+function speedUp(){
+	if (gameSpeed > 100)
+	gameSpeed -= 100;
+	if (timers.length > 0){
+		stopGame();
+		startGame();
+	}
+	
+}
+function slowDown(){
+	gameSpeed +=100
+	if (timers.length > 0){
+		stopGame();
+		startGame();
+	}
+}
+function changeColor(color){
+	livingColor = color;
+	updateCells();
+}
+function randomLife(){
+	
+	for (var i = 0; i < gameLength; i++){
+		for(var j = 0; j < gameLength; j++){
+			var num = (Math.floor(Math.random() * 2));
+			if(num)
+				myLifeGame.setAlive(i,j);
+			else
+				myLifeGame.setDead(i,j);
+		}
+		
+	}
 	updateCells();
 }

@@ -9,10 +9,22 @@
   </head>
 
   <body>
-
+    <div id="gameOptions">
+		<button onclick="startGame()">Start Game</button>
+		<button onclick="stopGame()">Stop Game</button>
+		<button onclick="speedUp()">Speed Up</button>
+		<button onclick="slowDown()">Slow Down</button>
+		<button onclick="randomLife()">Randomize Life</button>
+		<select onchange="changeColor(value)">
+			<option value="green">Green</option>
+			<option value="black">Black</option>
+			<option value="blue">Blue</option>
+			<option value="purple">Purple</option>
+		</select> 
+	</div>
     <div id="game">
-    
     </div>
+
   </body>
 
 </html>
